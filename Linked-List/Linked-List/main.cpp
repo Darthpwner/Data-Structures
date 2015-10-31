@@ -133,6 +133,18 @@ void SinglyLinkedList::deleteItem(string v) {
         //Return - we're done
         return;
     }
+    
+    Node* p = head;
+    while (p != nullptr) {
+        if (p -> next != nullptr && p -> next -> value == v) {
+            break;  //p points to node above
+        }
+        p = p -> next;
+    } if (p != nullptr) {   //We found our value!
+        Node* killMe = p -> next;
+        p -> next = killMe -> next;
+        delete killMe;
+    }
 }
 
 bool SinglyLinkedList::findItem(string v) {
