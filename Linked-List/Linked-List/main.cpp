@@ -116,7 +116,23 @@ void SinglyLinkedList::addItem(string newItem) {
 }
 
 void SinglyLinkedList::deleteItem(string v) {
+    //If the list is empty, return
+    if(head == nullptr) return;
     
+    //If the first node holds the item we wish to delete then
+    if(head->value == v) {
+        //killMe = address of top node
+        Node* killMe = head;
+        
+        //Update head to point to the second node in the list
+        head = killMe -> next;
+        
+        //Delete our target node
+        delete killMe;
+        
+        //Return - we're done
+        return;
+    }
 }
 
 bool SinglyLinkedList::findItem(string v) {
