@@ -35,7 +35,7 @@ private:
 };
 
 SinglyLinkedList::SinglyLinkedList() {
-    
+    head = nullptr; //Initialize your head to be the first AND last node
 }
 
 void SinglyLinkedList::addToFront(string v) {
