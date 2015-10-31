@@ -168,7 +168,13 @@ void SinglyLinkedList::printItems() {
 }
 
 SinglyLinkedList::~SinglyLinkedList() {
-    
+    Node* p;
+    p = head;
+    while (p != nullptr) {
+        Node* n = p -> next;
+        delete p;
+        p = n;
+    }
 }
 
 int main(int argc, const char * argv[]) {
