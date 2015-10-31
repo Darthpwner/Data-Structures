@@ -39,7 +39,21 @@ SinglyLinkedList::SinglyLinkedList() {
 }
 
 void SinglyLinkedList::addToFront(string v) {
+    //Allocate a new node
+    Node* p;
+    p = new Node;
     
+    //Put value v in the node
+    p -> value = v;
+    
+    //ORDER OF THESE NEXT TWO STEPS MATTERS A LOT!
+    //Link the new Node to the old top Node
+    p -> next = head;
+    
+    //Link the head pointer to our new top Node
+    head = p;
+    
+    //Code works for an empty linked list as well as a linked list with at least one Node
 }
 
 void SinglyLinkedList::addToRear(string v) {
@@ -55,7 +69,13 @@ bool SinglyLinkedList::findItem(string v) {
 }
 
 void SinglyLinkedList::printItems() {
+    Node* p;
+    p = head;   //Start the iterator at the head
     
+    while(p != nullptr) {
+        cout << p->value << endl;
+        p = p -> next;  //Traverses to the next Node in the Linked list
+    }
 }
 
 SinglyLinkedList::~SinglyLinkedList() {
