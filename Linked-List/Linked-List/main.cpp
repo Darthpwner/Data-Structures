@@ -35,6 +35,11 @@ private:
     Node* head;
 };
 
+class SinglyLinkedListWithTail: public SinglyLinkedList {   //Derived class of SinglyLinkedList
+private:
+    Node* tail;
+};
+
 SinglyLinkedList::SinglyLinkedList() {
     head = nullptr; //Initialize your head to be the first AND last node
 }
@@ -190,7 +195,7 @@ int main(int argc, const char * argv[]) {
     
     linkedList.printItems();
     
-//    linkedList.addItem("Amanda"); 
+//    linkedList.addItem("Amanda");
 //    linkedList.addItem("Mandy");
 //    
     cout << endl;
