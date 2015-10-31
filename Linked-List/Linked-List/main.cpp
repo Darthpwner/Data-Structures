@@ -148,7 +148,13 @@ void SinglyLinkedList::deleteItem(string v) {
 }
 
 bool SinglyLinkedList::findItem(string v) {
-    return false;
+    Node* p = head;
+    while (p != nullptr) {
+        if(p -> value == v) //Compare Node's value to the argument v
+            return true;
+        p = p -> next;  //Iterate to the next Node
+    }
+    return false;   //Return false if you did not find anything after iterating through the list
 }
 
 void SinglyLinkedList::printItems() {
