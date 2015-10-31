@@ -57,7 +57,30 @@ void SinglyLinkedList::addToFront(string v) {
 }
 
 void SinglyLinkedList::addToRear(string v) {
-    
+    //If our linked list is empty, then use our addToFront() code
+    if(head == nullptr) {
+        addToFront(v);
+    } else {
+        //Use a temp variable to traverse to the current last node of the list
+        Node* p;
+        p = head;   //Start at top Node
+        
+        while(p -> next != nullptr) {   //Go to current last Node
+            p = p -> next;
+        }
+        
+        //Allocate a new node
+        Node* n = new Node;
+        
+        //Put value v in the node
+        n -> value = v;
+        
+        //Link the current last node to our new node
+        p -> next = n;
+        
+        //Link the last node to nullptr
+        n -> next = nullptr;
+    }
 }
 
 void SinglyLinkedList::deleteItem(string v) {
