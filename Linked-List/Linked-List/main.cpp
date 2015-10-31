@@ -189,5 +189,21 @@ int main(int argc, const char * argv[]) {
     linkedList.addToRear("Wendy");
     
     linkedList.printItems();
+    
+//    linkedList.addItem("Amanda"); 
+//    linkedList.addItem("Mandy");
+//    
+    cout << endl;
+    
+    linkedList.deleteItem("Matthew");
+    
+    linkedList.printItems();
+    
+    
+    
+    //linkedList.addItem("Kelly");
+    //linkedList.addItem("Michelle");
+    
+    //linkedList.printItems();
     return 0;
 }
