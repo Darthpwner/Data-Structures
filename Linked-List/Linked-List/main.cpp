@@ -22,6 +22,7 @@ public:
     SinglyLinkedList();
     void addToFront(string v);
     void addToRear(string v);
+    void addItem(string newItem);
     void deleteItem(string v);
     bool findItem(string v);
     void printItems();
@@ -80,6 +81,37 @@ void SinglyLinkedList::addToRear(string v) {
         
         //Link the last node to nullptr
         n -> next = nullptr;
+    }
+}
+
+void SinglyLinkedList::addItem(string newItem) {
+    //If our linked list is empty, use our addToFront code
+    if (head == nullptr) {
+        addToFront(newItem);
+    }
+    
+    //else if our new node belongs at the top of the list, use addToFront still!
+    else if (newItem < head -> value) {
+        addToFront(newItem);
+    }
+ 
+    //New Node belongs somewhere in the middle of the list
+    else {
+        //Use a traversal loop to find the node just ABOVE where you want to insert our new item
+        Node* p = head; //Start with the first node
+        while (p -> next != nullptr) {
+            if (newItem >= p -> value && newItem <= p -> next -> value)
+                break;
+        }
+        
+        //Allocate and fill our new node with the item
+        Node* latest = new Node;
+        latest -> value = newItem;
+        
+        //Link the new node into the list right after the ABOVE node
+        latest -> next = p -> next; //Link new node to the node below
+        p -> next = latest; //Link above node to our new node
+        //Order of above two lines MATTERS
     }
 }
 
