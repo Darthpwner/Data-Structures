@@ -37,7 +37,16 @@ private:
 
 class SinglyLinkedListWithTail: public SinglyLinkedList {   //Derived class of SinglyLinkedList
 private:
+    //TODO
     Node* tail;
+};
+
+class DoublyLinkedList: public SinglyLinkedList {   //Derived class of SinglyLinkedList
+        //TODO
+};
+
+class DoublyLinkedListWithTail: public SinglyLinkedListWithTail {   //Derived class of SinglyLinkedListWithTail
+    
 };
 
 SinglyLinkedList::SinglyLinkedList() {
@@ -204,6 +213,7 @@ int main(int argc, const char * argv[]) {
     
     linkedList.printItems();
     
+    SinglyLinkedListWithTail linkedListWithTail;
     
     
     //linkedList.addItem("Kelly");
