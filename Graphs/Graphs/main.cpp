@@ -80,8 +80,11 @@ int main(int argc, const char * argv[]) {
     g.addRelation(1, 4);
     g.addRelation(1, 5);    //Should display failure message
     g.addRelation(2, 3);
+    g.printGraph(); //Should show (1, 4), (4, 1), (3, 2), (2, 3) relationship
+    
     g.deleteRelation(3, 2);
     
+    cout << "After deletion\n";
     g.printGraph(); //Should only show (1, 4) and (4, 1) relationship
     
     DirectedGraph dg;
@@ -89,10 +92,22 @@ int main(int argc, const char * argv[]) {
     dg.printGraph();
     
     dg.addRelation(1, 4);
-    dg.printGraph();
+    dg.addRelation(1, 5);   //Should display failure message
+    dg.addRelation(2, 3);
     
-    g.printGraph();
-
+    dg.printGraph();    //(1, 4), (2, 3);
+    
+    g.printGraph(); //(1, 4), (4, 1)
+    
+    //Delete points on dg
+    dg.deleteRelation(3, 2);    //Should not do anything
+    
+    dg.printGraph();    //(1, 4), (2, 3);
+    
+    dg.deleteRelation(2, 3);
+    
+    dg.printGraph();    //(1, 4)
+    
     return 0;
 }
 
@@ -159,6 +174,6 @@ void Graph::deleteRelation(int x, int y) {
     }
     
     m_graph[x][y] = false;
-    m_graph[x][y] = false;
+    m_graph[y][x] = false;
 }
 
