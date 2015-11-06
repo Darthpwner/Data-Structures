@@ -89,12 +89,19 @@ int main(int argc, const char * argv[]) {
     dg.printGraph();
     
     dg.addRelation(1, 4);
+    dg.printGraph();
+    
+    g.printGraph();
 
     return 0;
 }
 
 Graph::Graph() {
-    m_graph[N][N] = {false};  //Set the entire graph to false for now (no edge connections at the start)
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            m_graph[i][j] = false;  //Set the entire graph to false for now (no edge connections at the start)
+        }
+    }
 }
 
 //Mutator function that sets a relationship between two nodes (bidrectionally)
