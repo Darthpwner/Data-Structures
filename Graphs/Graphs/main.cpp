@@ -19,6 +19,8 @@ public:
     virtual void addRelation(int x, int y);
     void printGraph();
     virtual void deleteRelation(int x, int y);
+    void printMutualRelationsGraph(bool m_graph[N][N]);
+    
 protected:
     bool m_graph[N][N];
 };
@@ -176,4 +178,11 @@ void Graph::deleteRelation(int x, int y) {
     m_graph[x][y] = false;
     m_graph[y][x] = false;
 }
+//
+//void Graph::printMutualRelationsGraph(<#bool (*m_graph)[5]#>) {
+//    
+//}
 
+void Graph::printMutualRelationsGraph(bool m_graph[N][N]) {
+   //TODO
+}
