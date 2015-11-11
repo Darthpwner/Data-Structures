@@ -191,8 +191,25 @@ SinglyLinkedList::~SinglyLinkedList() {
     }
 }
 
+//Matthew's algorithm for reverse
 void SinglyLinkedList::reverse() {
-    //TODO
+    Node* p;
+    Node* temp;
+    p = head;
+    temp = nullptr;
+    
+    if(p == nullptr || p -> next == nullptr) {  //Leave a linked list alone if it has 0 or 1 item
+        return;
+    }
+    
+    while(p != nullptr) {
+        p = p -> next;  //Move p to next node
+        head -> next = temp;
+        temp = head;
+        head = p;
+    }
+    
+    head = temp;    //Reset because it goes out of bounds
 }
 
 int main(int argc, const char * argv[]) {
@@ -207,6 +224,11 @@ int main(int argc, const char * argv[]) {
 //    linkedList.addItem("Amanda");
 //    linkedList.addItem("Mandy");
 //    
+    cout << endl;
+    
+    linkedList.reverse();
+    linkedList.printItems();
+    
     cout << endl;
     
     linkedList.deleteItem("Matthew");

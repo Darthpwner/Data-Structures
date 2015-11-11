@@ -19,10 +19,14 @@ public:
     virtual void addRelation(int x, int y);
     void printGraph();
     virtual void deleteRelation(int x, int y);
-    void printMutualRelationsGraph(bool m_graph[N][N]);
+    virtual void printMutualRelationsGraph();
     
 protected:
     bool m_graph[N][N];
+    bool m_mutualGraph[N][N];
+    
+private:
+    void setMutualRelationsGraph(bool m_mutualGraph[N][N]);
 };
 
 class DirectedGraph: public Graph {   //Assumes a directed graph
@@ -110,6 +114,15 @@ int main(int argc, const char * argv[]) {
     
     dg.printGraph();    //(1, 4)
     
+    //Mutual friends test
+    Graph mutualFriends;
+    mutualFriends.addRelation(1, 4);
+    mutualFriends.addRelation(2, 3);
+    mutualFriends.addRelation(3, 5);
+    mutualFriends.addRelation(4, 3);
+    
+    mutualFriends.printMutualRelationsGraph();
+    
     return 0;
 }
 
@@ -178,11 +191,25 @@ void Graph::deleteRelation(int x, int y) {
     m_graph[x][y] = false;
     m_graph[y][x] = false;
 }
-//
-//void Graph::printMutualRelationsGraph(<#bool (*m_graph)[5]#>) {
-//    
-//}
 
-void Graph::printMutualRelationsGraph(bool m_graph[N][N]) {
-   //TODO
+void Graph::setMutualRelationsGraph(bool m_mutualGraph[N][N]) {
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            m_mutualGraph[i][j] = m_graph[i][j] * m_graph[i][j];
+        }
+    }
 }
+
+void Graph::printMutualRelationsGraph() {
+    setMutualRelationsGraph(bool m_mutualGraph);
+    
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
+            cout << m_mutualGraph[i][j];
+        }
+        cout << "\n";
+    }
+    
+    cout << "\n";   //Pad an extra line for cleanliness
+}
+
