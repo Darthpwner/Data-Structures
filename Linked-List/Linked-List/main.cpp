@@ -218,6 +218,7 @@ int main(int argc, const char * argv[]) {
     linkedList.addToFront("Christine");
     linkedList.addToRear("Matthew");
     linkedList.addToRear("Wendy");
+    linkedList.addToFront("Ranee");
     
     linkedList.printItems();
     
