@@ -39,6 +39,7 @@ public:
 
 class DirectedGraphAdjacencyList {  //Implements a directed graph using an adjacency list
 public:
+    DirectedGraphAdjacencyList();
     void printAdjacencyList();
     void addRelation(int x, int y);
     
@@ -133,6 +134,17 @@ int main(int argc, const char * argv[]) {
     
     mutualFriends.printMutualRelationsGraph();
     
+    //Directed Adjacency List Test
+    DirectedGraphAdjacencyList adjacencyList;
+    
+    adjacencyList.printAdjacencyList(); //Should read five rows of 0
+    
+    adjacencyList.addRelation(0, 3);
+    adjacencyList.addRelation(2, 0);
+    adjacencyList.addRelation(0, 1);
+    
+    adjacencyList.printAdjacencyList();
+    
     return 0;
 }
 
@@ -224,6 +236,12 @@ void Graph::printMutualRelationsGraph() {
 }
 
 /*Directed Adjacency List**********************************************/
+DirectedGraphAdjacencyList::DirectedGraphAdjacencyList() {
+    for(int i = 0; i < N; i++) {
+        m_graph[i] = {i};   //Assigning the array, not the list!
+    }
+}
+
 void DirectedGraphAdjacencyList::addRelation(int x, int y) {
     m_graph[x].push_back(y);
 }
@@ -232,9 +250,12 @@ void DirectedGraphAdjacencyList::printAdjacencyList() {
     list<int>::const_iterator iterator;
     for(int i = 0; i < N; i++) {
         for(iterator = m_graph[i].begin(); iterator != m_graph[i].end(); ++iterator) {
-            cout << *iterator;
+            cout << *iterator << " ";
         }
+        cout << "\n";
     }
+    
+    cout << "\n";   //Pad an extra line for cleanliness
 }
 
 
