@@ -40,8 +40,9 @@ public:
 class DirectedGraphAdjacencyList {  //Implements a directed graph using an adjacency list
 public:
     DirectedGraphAdjacencyList();
-    void printAdjacencyList();
     void addRelation(int x, int y);
+    void printAdjacencyList();
+    void deleteRelation(int x, int y);
     
 private:
     list<int> m_graph[N];
@@ -258,4 +259,7 @@ void DirectedGraphAdjacencyList::printAdjacencyList() {
     cout << "\n";   //Pad an extra line for cleanliness
 }
 
+void DirectedGraphAdjacencyList::deleteRelation(int x, int y) {
+    
+}
 
