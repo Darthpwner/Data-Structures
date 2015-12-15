@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <list>
 
 using namespace std;
 
@@ -34,6 +35,15 @@ public:
     virtual void setGraph(int x, int y);
     virtual void addRelation(int x, int y);
     virtual void deleteRelation(int x, int y);
+};
+
+class DirectedGraphAdjacencyList {  //Implements a directed graph using an adjacency list
+public:
+    void printAdjacencyList();
+    void addRelation(int x, int y);
+    
+private:
+    list<int> m_graph[N];
 };
 
 //Adds a directed graph edge from x to y
@@ -201,7 +211,7 @@ void Graph::setMutualRelationsGraph(bool m_mutualGraph[N][N]) {
 }
 
 void Graph::printMutualRelationsGraph() {
-    setMutualRelationsGraph(bool m_mutualGraph);
+    setMutualRelationsGraph(m_mutualGraph);
     
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < N; j++) {
@@ -212,4 +222,19 @@ void Graph::printMutualRelationsGraph() {
     
     cout << "\n";   //Pad an extra line for cleanliness
 }
+
+/*Directed Adjacency List**********************************************/
+void DirectedGraphAdjacencyList::addRelation(int x, int y) {
+    m_graph[x].push_back(y);
+}
+
+void DirectedGraphAdjacencyList::printAdjacencyList() {
+    list<int>::const_iterator iterator;
+    for(int i = 0; i < N; i++) {
+        for(iterator = m_graph[i].begin(); iterator != m_graph[i].end(); ++iterator) {
+            cout << *iterator;
+        }
+    }
+}
+
 
