@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <list>
+#include <stack>
+#include <queue>
 
 using namespace std;
 
@@ -263,3 +265,7 @@ void DirectedGraphAdjacencyList::deleteRelation(int x, int y) {
     
 }
 
+/*Traversal Algorithms****************************************************/
+void dfsWithStack(bool m_graph[][N]) {
+    
+}
