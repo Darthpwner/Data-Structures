@@ -22,20 +22,44 @@ public:
     void printVal(int i);
     void printHeap();
     void addNode(int v);
-private:
+    void swap(int& a, int& b);
+protected:
     int m_count = 0;
     int m_heap[N];
 };
 
+class Minheap: public Heap {
+public:
+    virtual void addNode(int v);
+};
+
+class Maxheap: public Heap {
+public:
+    virtual void addNode(int v);
+};
+
 int main(int argc, const char * argv[]) {
     Heap h;
-    h.addNode(5);
-    h.addNode(20);
-    h.addNode(9);
-    h.addNode(2);
-    h.printVal(0);
+//    h.addNode(5);
+//    h.addNode(20);
+//    h.addNode(9);
+//    h.addNode(2);
+//    h.printVal(0);
+//    
+//    h.printHeap();
+//    
+//    h.printVal(h.leftChildLocator(0));
+//    h.printVal(h.leftChildLocator(5));
+//    
+//    h.printVal(h.rightChildLocator(0));
     
-    h.printHeap();
+    Minheap mh;
+    mh.addNode(5);
+    mh.addNode(2);
+    mh.addNode(1);
+    mh.addNode(4);
+    
+    mh.printHeap(); //1 2 4 5
     
     return 0;
 }
@@ -49,11 +73,21 @@ int Heap::getRootIndex() {
 }
 
 int Heap::leftChildLocator(int i) {
-    return (2 * i + 1);
+    if(i < m_count) {
+        return (2 * i + 1);
+    } else {
+        cout << "Error: ";
+        return -1;
+    }
 }
 
 int Heap::rightChildLocator(int i) {
-    return (2 * i + 2);
+    if(i < m_count) {
+        return (2 * i + 2);
+    } else {
+        cout << "Error: ";
+        return -1;
+    }
 }
 
 int Heap::parentLocator(int i) {
@@ -75,3 +109,38 @@ void Heap::addNode(int v) {
     m_heap[m_count] = v;
     m_count++;
 }
+
+void Heap::swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+/*Minheap********/
+void Minheap::addNode(int v) {
+    m_heap[m_count] = v;
+    
+    int i = m_count;
+    while(m_heap[i] < m_heap[parentLocator(i)]) {
+        swap(m_heap[i], m_heap[parentLocator(i)]);
+        i = parentLocator(i);
+    }
+    
+    m_count++;
+
+}
+/****************/
+
+/*Maxheap********/
+void Maxheap::addNode(int v) {
+    m_heap[m_count] = v;
+    
+    int i = m_count;
+    while(m_heap[i] > m_heap[parentLocator(i)]) {
+        swap(m_heap[i], m_heap[parentLocator(i)]);
+        i = parentLocator(i);
+    }
+    
+    m_count++;
+}
+/****************/
