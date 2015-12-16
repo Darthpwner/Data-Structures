@@ -62,6 +62,10 @@ int main(int argc, const char * argv[]) {
     mh.addNode(2);
     mh.addNode(1);
     mh.addNode(4);
+    mh.addNode(-2423);
+    mh.addNode(12312);
+    mh.addNode(69);
+    mh.addNode(23423);
     
     mh.printHeap(); //1 2 4 5
     
@@ -96,7 +100,7 @@ int Heap::leftChildLocator(int i) {
     if(i < m_count) {
         return (2 * i + 1);
     } else {
-        cout << "Error: ";
+        //cout << "Error: ";
         return -1;
     }
 }
@@ -105,7 +109,7 @@ int Heap::rightChildLocator(int i) {
     if(i < m_count) {
         return (2 * i + 2);
     } else {
-        cout << "Error: ";
+        //cout << "Error: ";
         return -1;
     }
 }
