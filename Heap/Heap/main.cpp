@@ -31,11 +31,13 @@ protected:
 class Minheap: public Heap {
 public:
     virtual void addNode(int v);
+    int extractMin();
 };
 
 class Maxheap: public Heap {
 public:
     virtual void addNode(int v);
+    int extractMax();
 };
 
 int main(int argc, const char * argv[]) {
@@ -53,13 +55,25 @@ int main(int argc, const char * argv[]) {
 //    
 //    h.printVal(h.rightChildLocator(0));
     
-    Minheap mh;
-    mh.addNode(5);
-    mh.addNode(2);
-    mh.addNode(1);
-    mh.addNode(4);
+//    Minheap mh;
+//    mh.addNode(5);
+//    mh.addNode(2);
+//    mh.addNode(1);
+//    mh.addNode(4);
+//    
+//    mh.printHeap(); //1 2 4 5
     
-    mh.printHeap(); //1 2 4 5
+    Maxheap max;
+    max.addNode(2);
+    max.addNode(4);
+    max.addNode(8);
+    max.addNode(16);
+    max.addNode(32);
+    
+    max.printHeap();
+    max.extractMax();
+    
+    max.printHeap();
     
     return 0;
 }
@@ -127,7 +141,20 @@ void Minheap::addNode(int v) {
     }
     
     m_count++;
+}
 
+int Minheap::extractMin() {
+    //Extract root
+    int extract = m_heap[0];
+    
+    //Copy bottom-most right-most to root
+    m_heap[0] = m_heap[m_count];
+    m_heap[m_count] = -1;
+    m_count--;
+    
+    //Compare with children
+    
+    return extract;
 }
 /****************/
 
@@ -142,5 +169,42 @@ void Maxheap::addNode(int v) {
     }
     
     m_count++;
+}
+
+int Maxheap::extractMax() {
+    //Extract root
+    int extract = m_heap[0];
+    
+    //Copy bottom-most right-most to root
+    m_heap[0] = m_heap[m_count - 1];
+    m_heap[m_count - 1] = -1;
+    m_count--;
+    
+    //Compare with children
+    int i = 0;
+
+    bool compareLeft = m_heap[i] < m_heap[leftChildLocator(i)];
+    bool compareRight =  m_heap[i] < m_heap[rightChildLocator(i)];
+    
+    int left = m_heap[leftChildLocator(i)];
+    int right = m_heap[rightChildLocator(i)];
+    
+    while(compareLeft || compareRight) {
+        if(left > right) {
+            swap(m_heap[i], m_heap[leftChildLocator(i)]);
+            i = leftChildLocator(i);
+        } else {    //right > left
+            swap(m_heap[i], m_heap[rightChildLocator(i)]);
+            i = rightChildLocator(i);
+        }
+        
+        compareLeft = m_heap[i] < m_heap[leftChildLocator(i)];
+        compareRight =  m_heap[i] < m_heap[rightChildLocator(i)];
+        
+        left = m_heap[leftChildLocator(i)];
+        right = m_heap[rightChildLocator(i)];
+    }
+    
+    return extract;
 }
 /****************/
