@@ -30,30 +30,32 @@ protected:
 
 class Minheap: public Heap {
 public:
+    Minheap();
     virtual void addNode(int v);
     int extractMin();
 };
 
 class Maxheap: public Heap {
 public:
+    Maxheap();
     virtual void addNode(int v);
     int extractMax();
 };
 
 int main(int argc, const char * argv[]) {
     Heap h;
-//    h.addNode(5);
-//    h.addNode(20);
-//    h.addNode(9);
-//    h.addNode(2);
-//    h.printVal(0);
-//    
-//    h.printHeap();
-//    
-//    h.printVal(h.leftChildLocator(0));
-//    h.printVal(h.leftChildLocator(5));
-//    
-//    h.printVal(h.rightChildLocator(0));
+    h.addNode(5);
+    h.addNode(20);
+    h.addNode(9);
+    h.addNode(2);
+    h.printVal(0);
+    
+    h.printHeap();
+    
+    h.printVal(h.leftChildLocator(0));
+    h.printVal(h.leftChildLocator(5));
+    
+    h.printVal(h.rightChildLocator(0));
     
     Minheap mh;
     mh.addNode(5);
@@ -135,6 +137,12 @@ void Heap::swap(int& a, int& b) {
 }
 
 /*Minheap********/
+Minheap::Minheap() {
+    for(int i = 0; i < N; i++) {
+        m_heap[i] = numeric_limits<int>::max();
+    }
+}
+
 void Minheap::addNode(int v) {
     m_heap[m_count] = v;
     
@@ -186,6 +194,12 @@ int Minheap::extractMin() {
 /****************/
 
 /*Maxheap********/
+Maxheap::Maxheap() {
+    for(int i = 0; i < N; i++) {
+        m_heap[i] = numeric_limits<int>::min();
+    }
+}
+
 void Maxheap::addNode(int v) {
     m_heap[m_count] = v;
     
