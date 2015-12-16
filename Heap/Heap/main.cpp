@@ -55,13 +55,17 @@ int main(int argc, const char * argv[]) {
 //    
 //    h.printVal(h.rightChildLocator(0));
     
-//    Minheap mh;
-//    mh.addNode(5);
-//    mh.addNode(2);
-//    mh.addNode(1);
-//    mh.addNode(4);
-//    
-//    mh.printHeap(); //1 2 4 5
+    Minheap mh;
+    mh.addNode(5);
+    mh.addNode(2);
+    mh.addNode(1);
+    mh.addNode(4);
+    
+    mh.printHeap(); //1 2 4 5
+    
+    mh.extractMin();
+    
+    mh.printHeap();
     
     Maxheap max;
     max.addNode(2);
@@ -148,11 +152,34 @@ int Minheap::extractMin() {
     int extract = m_heap[0];
     
     //Copy bottom-most right-most to root
-    m_heap[0] = m_heap[m_count];
-    m_heap[m_count] = -1;
+    m_heap[0] = m_heap[m_count - 1];
+    m_heap[m_count - 1] = -1;
     m_count--;
     
     //Compare with children
+    int i = 0;
+    
+    bool compareLeft = m_heap[i] > m_heap[leftChildLocator(i)];
+    bool compareRight =  m_heap[i] > m_heap[rightChildLocator(i)];
+    
+    int left = m_heap[leftChildLocator(i)];
+    int right = m_heap[rightChildLocator(i)];
+    
+    while((compareLeft || compareRight)) {  //FIX THIS SHIT IN THE MORNING
+        if(left < right) {
+            swap(m_heap[i], m_heap[leftChildLocator(i)]);
+            i = leftChildLocator(i);
+        } else {    //right < left
+            swap(m_heap[i], m_heap[rightChildLocator(i)]);
+            i = rightChildLocator(i);
+        }
+        
+        compareLeft = m_heap[i] > m_heap[leftChildLocator(i)];
+        compareRight =  m_heap[i] > m_heap[rightChildLocator(i)];
+        
+        left = m_heap[leftChildLocator(i)];
+        right = m_heap[rightChildLocator(i)];
+    }
     
     return extract;
 }
@@ -189,7 +216,7 @@ int Maxheap::extractMax() {
     int left = m_heap[leftChildLocator(i)];
     int right = m_heap[rightChildLocator(i)];
     
-    while(compareLeft || compareRight) {
+    while(compareLeft || compareRight) {    //FIX THIS SHIT IN THE MORNING
         if(left > right) {
             swap(m_heap[i], m_heap[leftChildLocator(i)]);
             i = leftChildLocator(i);
