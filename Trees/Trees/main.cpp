@@ -137,32 +137,38 @@ BinarySearchTree::BinarySearchTree(int value) {
 }
 
 void BinarySearchTree::insert(int value) {
+    time_complexity++;
+    
     if(root == NULL) {
         root = new BinarySearchTree(value);
+        determineBigO();
         return;
     }
     
     BinarySearchTree* cur = root;
     while(true) {
+        time_complexity++;
         if(value == cur -> value) {
-            return;
+            break;
         }
         if(value < cur -> value) {
             if(cur -> left != NULL) {
                 cur = cur -> left;
             } else {
                 cur -> left = new BinarySearchTree(value);
-                return;
+                break;
             }
         } else if(value > cur -> value) {
             if(cur -> right != NULL) {
                 cur = cur -> right;
             } else {
                 cur -> right = new BinarySearchTree(value);
-                return;
+                break;
             }
         }
     }
+    
+    determineBigO();
 }
 
 int main(int argc, const char * argv[]) {
@@ -181,4 +187,9 @@ int main(int argc, const char * argv[]) {
     
     bt.postOrder(bt.root);
     determineBigO();
+    
+    BinarySearchTree bst;
+    bst.insert(5);
+    bst.insert(2);
+    bst.insert(8);
 }
