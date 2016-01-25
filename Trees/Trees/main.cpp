@@ -26,6 +26,9 @@ public:
     BinaryTree();
     BinaryTree(int value);
     void insert(BinaryTree* parent, int value);
+    void preOrder(BinaryTree* cur);
+    void inOrder(BinaryTree* cur);
+    void postOrder(BinaryTree* cur);
     
     int item;   //Node
     BinaryTree* root;
@@ -68,11 +71,56 @@ void BinaryTree::insert(BinaryTree* parent, int value) {
     }
 }
 
+void BinaryTree::preOrder(BinaryTree* cur) {
+    if(cur == NULL) {   //If empty, return
+        return;
+    }
+    
+    cout << cur -> item << endl;    //Process the current node
+    
+    preOrder(cur -> left);  //Process nodes in left-subtree
+    preOrder(cur -> right); //Process nodes in right-subtree
+}
+
+void BinaryTree::inOrder(BinaryTree* cur) {
+    if(cur == NULL) {   //If empty, return
+        return;
+    }
+    
+    inOrder(cur -> left);   //Process nodes in left sub-tree
+    
+    cout << cur -> item << endl;    //Process the current node
+    
+    inOrder(cur -> right);  //Process nodes in right sub-tree
+}
+
+void BinaryTree::postOrder(BinaryTree* cur) {
+    if(cur == NULL) {   //If empty, return
+        return;
+    }
+    
+    postOrder(cur -> left); //Process nodes in left sub-tree
+    
+    postOrder(cur -> right);    //Process nodes in right sub-tree
+    
+    cout << cur -> item << endl;    //Process the current node
+}
+
 int main(int argc, const char * argv[]) {
     // insert code here...
     BinaryTree bt(5);
     
+    
     bt.insert(bt.root, 7);
     bt.insert(bt.root, 9);
     bt.insert(bt.root, 11); //Should display error
+    
+    bt.preOrder(bt.root);
+    cout << endl;
+    
+    bt.inOrder(bt.root);
+    cout << endl;
+    
+    bt.postOrder(bt.root);
+    cout << endl;
 }
