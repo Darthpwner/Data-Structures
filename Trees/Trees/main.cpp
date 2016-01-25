@@ -12,6 +12,13 @@ using namespace std;
 
 const int TREE_SIZE = 100;
 
+int time_complexity = 0;    //Big O
+
+void determineBigO() {
+    cout << "Number of runs: " << time_complexity << endl << endl;
+    time_complexity = 0;
+}
+
 struct Tree {
 public:
     Tree();
@@ -34,6 +41,17 @@ public:
     BinaryTree* root;
     BinaryTree* left; //Pointer to the left subtree
     BinaryTree* right;    //Pointer ot the right subtree
+};
+
+struct BinarySearchTree: public BinaryTree {
+    BinarySearchTree();
+    BinarySearchTree(int value);
+    void insert(int value);
+    
+    int value;  //Node
+    BinarySearchTree* root;
+    BinarySearchTree* left;
+    BinarySearchTree* right;
 };
 
 Tree::Tree() {
@@ -77,6 +95,7 @@ void BinaryTree::preOrder(BinaryTree* cur) {
     }
     
     cout << cur -> item << endl;    //Process the current node
+    time_complexity++;
     
     preOrder(cur -> left);  //Process nodes in left-subtree
     preOrder(cur -> right); //Process nodes in right-subtree
@@ -90,10 +109,12 @@ void BinaryTree::inOrder(BinaryTree* cur) {
     inOrder(cur -> left);   //Process nodes in left sub-tree
     
     cout << cur -> item << endl;    //Process the current node
+    time_complexity++;
     
     inOrder(cur -> right);  //Process nodes in right sub-tree
 }
 
+//Can be used for arithmetic calculations that are represented in a binary tree
 void BinaryTree::postOrder(BinaryTree* cur) {
     if(cur == NULL) {   //If empty, return
         return;
@@ -104,23 +125,60 @@ void BinaryTree::postOrder(BinaryTree* cur) {
     postOrder(cur -> right);    //Process nodes in right sub-tree
     
     cout << cur -> item << endl;    //Process the current node
+    time_complexity++;
+}
+
+BinarySearchTree::BinarySearchTree() {
+    
+}
+
+BinarySearchTree::BinarySearchTree(int value) {
+    
+}
+
+void BinarySearchTree::insert(int value) {
+    if(root == NULL) {
+        root = new BinarySearchTree(value);
+        return;
+    }
+    
+    BinarySearchTree* cur = root;
+    while(true) {
+        if(value == cur -> value) {
+            return;
+        }
+        if(value < cur -> value) {
+            if(cur -> left != NULL) {
+                cur = cur -> left;
+            } else {
+                cur -> left = new BinarySearchTree(value);
+                return;
+            }
+        } else if(value > cur -> value) {
+            if(cur -> right != NULL) {
+                cur = cur -> right;
+            } else {
+                cur -> right = new BinarySearchTree(value);
+                return;
+            }
+        }
+    }
 }
 
 int main(int argc, const char * argv[]) {
     // insert code here...
     BinaryTree bt(5);
     
-    
     bt.insert(bt.root, 7);
     bt.insert(bt.root, 9);
     bt.insert(bt.root, 11); //Should display error
     
     bt.preOrder(bt.root);
-    cout << endl;
+    determineBigO();
     
     bt.inOrder(bt.root);
-    cout << endl;
+    determineBigO();
     
     bt.postOrder(bt.root);
-    cout << endl;
+    determineBigO();
 }
