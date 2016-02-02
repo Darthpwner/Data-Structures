@@ -288,7 +288,24 @@ SinglyLinkedListWithTail::~SinglyLinkedListWithTail() {
 }
 
 void SinglyLinkedListWithTail::reverse() {
+    Node* p;
+    Node* temp;
+    p = head;
+    tail = head;
+    temp = nullptr;
     
+    if(p == nullptr || p -> next == nullptr) {  //Leave a linked list alone if it has 0 or 1 item
+        return;
+    }
+    
+    while(p != nullptr) {
+        p = p -> next;  //Move p to next node
+        head -> next = temp;
+        temp = head;
+        head = p;
+    }
+    
+    head = temp;    //Reset because it goes out of bounds
 }
 
 
@@ -302,6 +319,15 @@ int main(int argc, const char * argv[]) {
     
     linkedListWithTail.addToRear("Roger");
     linkedListWithTail.addToRear("Rafa");
+ 
+    linkedListWithTail.printItems();
+    cout << endl;
+    
+    linkedListWithTail.reverse();
+    
+    linkedListWithTail.printItems();
+    cout << endl;
+    
     linkedListWithTail.deleteItem("Rafa");
 
     SinglyLinkedList orderedLinkedList;
@@ -312,6 +338,11 @@ int main(int argc, const char * argv[]) {
     orderedLinkedList.addItem("Amanda");
     orderedLinkedList.addItem("Christine");
     orderedLinkedList.printItems(); //Prints in order
+    
+    cout << endl;
+    
+    orderedLinkedList.reverse();
+    orderedLinkedList.printItems();
     
     cout << endl;
     
