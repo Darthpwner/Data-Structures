@@ -31,13 +31,18 @@ public:
     //Additional functions
     void reverse();
     
-private:
+protected:
     Node* head;
 };
 
 class SinglyLinkedListWithTail: public SinglyLinkedList {   //Derived class of SinglyLinkedList
+public:
+    SinglyLinkedListWithTail();
+    void addToFront(string v);
+    void addToRear(string v);
+    void deleteItem(string v);
+
 private:
-    //TODO
     Node* tail;
 };
 
@@ -212,8 +217,85 @@ void SinglyLinkedList::reverse() {
     head = temp;    //Reset because it goes out of bounds
 }
 
-int main(int argc, const char * argv[]) {
+SinglyLinkedListWithTail::SinglyLinkedListWithTail() {
+    head = nullptr; //Initialize your head to be the first AND last node
+    tail = head;    //Initialize your tail to head
+}
 
+void SinglyLinkedListWithTail::addToFront(string v) {
+    SinglyLinkedList::addToFront(v);
+    if(head == nullptr) {
+        tail = head;
+    }
+}
+
+void SinglyLinkedListWithTail::addToRear(string v) {
+    if(head == nullptr) {
+        addToFront(v);
+        tail = head;
+    } else {
+        Node *n = new Node;
+        n -> value = v;
+        tail -> next = n;
+        n -> next = nullptr;
+        tail = n;
+    }
+}
+
+void SinglyLinkedListWithTail::deleteItem(string v) {
+    //If the list is empty, return
+    if(head == nullptr) return;
+    
+    //If the first node holds the item we wish to delete then
+    if(head->value == v) {
+        //killMe = address of top node
+        Node* killMe = head;
+        
+        //Update head to point to the second node in the list
+        head = killMe -> next;
+        
+        if(tail == killMe) {
+            tail = tail -> next;
+        }
+        
+        //Delete our target node
+        delete killMe;
+        
+        //Return - we're done
+        return;
+    }
+    
+    Node* p = head;
+    while (p != nullptr) {
+        if (p -> next != nullptr && p -> next -> value == v) {
+            break;  //p points to node above
+        }
+        p = p -> next;
+    } if (p != nullptr) {   //We found our value!
+        Node* killMe = p -> next;
+        p -> next = killMe -> next;
+        delete killMe;
+    }
+}
+
+int main(int argc, const char * argv[]) {
+    
+    SinglyLinkedListWithTail linkedListWithTail;
+    
+    linkedListWithTail.addToRear("Novak");
+    linkedListWithTail.deleteItem("Novak");
+
+    SinglyLinkedList orderedLinkedList;
+    
+    orderedLinkedList.addItem("Wendy");
+    orderedLinkedList.addItem("Matthew");
+    orderedLinkedList.addItem("Ranee");
+    orderedLinkedList.addItem("Amanda");
+    orderedLinkedList.addItem("Christine");
+    orderedLinkedList.printItems(); //Prints in order
+    
+    cout << endl;
+    
     SinglyLinkedList linkedList;
     linkedList.addToFront("Christine");
     linkedList.addToRear("Matthew");
@@ -222,7 +304,11 @@ int main(int argc, const char * argv[]) {
     
     linkedList.printItems();
     
-//    linkedList.addItem("Amanda");
+    linkedList.addItem("Amanda");
+    
+    cout << endl;
+    
+    linkedList.printItems();
 //    linkedList.addItem("Mandy");
 //    
     cout << endl;
@@ -235,8 +321,6 @@ int main(int argc, const char * argv[]) {
     linkedList.deleteItem("Matthew");
     
     linkedList.printItems();
-    
-    SinglyLinkedListWithTail linkedListWithTail;
     
     
     //linkedList.addItem("Kelly");
