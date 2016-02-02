@@ -41,6 +41,8 @@ public:
     void addToFront(string v);
     void addToRear(string v);
     void deleteItem(string v);
+    ~SinglyLinkedListWithTail();
+    void reverse();
 
 private:
     Node* tail;
@@ -266,17 +268,30 @@ void SinglyLinkedListWithTail::deleteItem(string v) {
     }
     
     Node* p = head;
-    while (p != nullptr) {
-        if (p -> next != nullptr && p -> next -> value == v) {
+    while (p != tail -> next) {
+        if (p -> next != tail -> next && p -> next -> value == v) {
             break;  //p points to node above
         }
         p = p -> next;
-    } if (p != nullptr) {   //We found our value!
+    } if (p != tail -> next) {   //We found our value!
         Node* killMe = p -> next;
         p -> next = killMe -> next;
+        if(killMe == tail) {
+            tail = p;
+        }
         delete killMe;
     }
 }
+
+SinglyLinkedListWithTail::~SinglyLinkedListWithTail() {
+    
+}
+
+void SinglyLinkedListWithTail::reverse() {
+    
+}
+
+
 
 int main(int argc, const char * argv[]) {
     
@@ -284,6 +299,10 @@ int main(int argc, const char * argv[]) {
     
     linkedListWithTail.addToRear("Novak");
     linkedListWithTail.deleteItem("Novak");
+    
+    linkedListWithTail.addToRear("Roger");
+    linkedListWithTail.addToRear("Rafa");
+    linkedListWithTail.deleteItem("Rafa");
 
     SinglyLinkedList orderedLinkedList;
     
