@@ -23,10 +23,12 @@ public:
 private:
     int m_stack[SIZE];
     int m_top;
+    int m_size;
 };
 
 Stack::Stack() {
-    m_top = 0;
+    m_top = -1;
+    m_size = 0;
 }
 
 Stack::~Stack() {
@@ -34,13 +36,15 @@ Stack::~Stack() {
 }
 
 void Stack::push(int i) {
-    if (m_top >= SIZE) return;  //Overflow
-    m_stack[m_top] = i;
+    if (m_size > SIZE) return;  //Overflow
+    m_stack[m_size] = i;
+    m_size++;
     m_top++;
 }
 
 int Stack::pop() {
-    if(m_top == 0) return -1;   //Underflow
+    if(m_size < 0) return -1;   //Underflow
+    m_size--;
     m_top--;
     return m_stack[m_top];
 }
@@ -68,6 +72,9 @@ int main(int argc, const char * argv[]) {
     printTop(s);
     
     s.push(3);
+    printTop(s);
+    
+    s.pop();
     printTop(s);
     
     return 0;
